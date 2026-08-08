@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragifah Food - Kelezatan Autentik Setiap Saat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-amber-50/40 text-gray-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="scrollToSection('hero')">
+                    <div class="bg-red-600 text-amber-300 p-2.5 rounded-2xl shadow-md">
+                        <i data-lucide="utensils-crossed" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold tracking-tight text-red-600 block leading-none">RAGIFAH</span>
+                        <span class="text-xs font-bold text-amber-600 tracking-widest uppercase">Food & Catering</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden md:flex space-x-8 font-medium text-gray-600">
+                    <a href="#hero" class="hover:text-red-600 transition-colors">Beranda</a>
+                    <a href="#menu" class="hover:text-red-600 transition-colors">Menu Favorit</a>
+                    <a href="#keunggulan" class="hover:text-red-600 transition-colors">Keunggulan</a>
+                    <a href="#kontak" class="hover:text-red-600 transition-colors">Kontak</a>
+                </nav>
+
+                <!-- Action Button & Cart -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Input (Desktop) -->
+                    <div class="relative hidden sm:block">
+                        <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Cari makanan..." class="pl-9 pr-4 py-2 bg-amber-50 border border-amber-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-red-500 w-44 lg:w-60 transition-all">
+                        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-2.5"></i>
+                    </div>
+
+                    <!-- Cart Button -->
+                    <button onclick="toggleCartModal()" class="relative p-2.5 bg-red-50 text-red-600 rounded-full hover:bg-red-100 transition-colors">
+                        <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative overflow-hidden bg-gradient-to-b from-amber-100/50 to-amber-50/10 py-12 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center md:text-left">
+                    <span class="inline-block px-4 py-1.5 bg-red-100 text-red-700 text-xs font-bold rounded-full uppercase tracking-wider">
+                        🔥 Sajian Lezat & Halal 100%
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+                        Nikmati Kelezatan Kuliner <span class="text-red-600">Ragifah Food</span>
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-xl mx-auto md:mx-0">
+                        Hadir dengan aneka pilihan makanan segar, lezat, dan higienis. Dibuat dari bahan-bahan berkualitas pilihan terbaik untuk memanjakan lidah Anda.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-2">
+                        <a href="#menu" class="w-full sm:w-auto px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all text-center">
+                            Pesan Sekarang
+                        </a>
+                        <a href="#keunggulan" class="w-full sm:w-auto px-6 py-3.5 bg-white border border-gray-200 hover:border-red-300 text-gray-700 font-semibold rounded-full shadow-sm hover:shadow transition-all text-center flex items-center justify-center gap-2">
+                            <span>Mengapa Kami?</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="w-72 h-72 sm:w-96 sm:h-96 bg-amber-300 rounded-full filter blur-3xl opacity-30 absolute -z-10"></div>
+                    <div class="relative bg-white p-4 rounded-3xl shadow-2xl border border-amber-100">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Makanan Lezat Ragifah" class="rounded-2xl w-full h-72 sm:h-96 object-cover">
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl border border-amber-100 hidden sm:flex items-center gap-3">
+                            <div class="bg-green-100 p-2.5 rounded-xl text-green-600">
+                                <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-medium">Jaminan Kualitas</p>
+                                <p class="text-sm font-bold text-gray-800">Fresh & Higienis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan Section -->
+    <section id="keunggulan" class="py-12 bg-white border-y border-amber-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex items-start space-x-4 p-4 rounded-2xl bg-amber-50/50">
+                    <div class="bg-red-600 text-white p-3 rounded-xl shadow-md">
+                        <i data-lucide="chef-hat" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">Bahan Berkualitas</h3>
+                        <p class="text-sm text-gray-600 mt-1">Menggunakan bahan-bahan segar pilihan tanpa bahan pengawet berbahaya.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4 p-4 rounded-2xl bg-amber-50/50">
+                    <div class="bg-red-600 text-white p-3 rounded-xl shadow-md">
+                        <i data-lucide="truck" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">Pengiriman Cepat</h3>
+                        <p class="text-sm text-gray-600 mt-1">Pesanan diantar selagi hangat untuk menjaga rasa dan cita rasa terbaik.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4 p-4 rounded-2xl bg-amber-50/50">
+                    <div class="bg-red-600 text-white p-3 rounded-xl shadow-md">
+                        <i data-lucide="thumbs-up" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">Harga Terjangkau</h3>
+                        <p class="text-sm text-gray-600 mt-1">Sajian lezat berkelas restoran dengan harga yang ramah di kantong.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <span class="text-red-600 font-bold text-sm tracking-wider uppercase">Menu Spesial</span>
+            <h2 class="text-3xl font-extrabold text-gray-900 mt-1">Pilihan Terfavorit Ragifah</h2>
+            <p class="text-gray-600 mt-2">Pilih menu favorit Anda dan langsung pesan dengan mudah lewat WhatsApp.</p>
+        </div>
+
+        <!-- Search Input (Mobile) -->
+        <div class="sm:hidden mb-6">
+            <div class="relative">
+                <input type="text" id="search-input-mobile" onkeyup="filterProductsMobile()" placeholder="Cari makanan favoritmu..." class="w-full pl-10 pr-4 py-3 bg-white border border-amber-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500 shadow-sm">
+                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-3 top-3.5"></i>
+            </div>
+        </div>
+
+        <!-- Kategori Filter -->
+        <div class="flex justify-center space-x-2 sm:space-x-4 mb-10 overflow-x-auto pb-2 hide-scrollbar">
+            <button onclick="filterCategory('all')" class="category-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-red-600 text-white shadow-md shadow-red-600/20" data-category="all">Semua</button>
+            <button onclick="filterCategory('makanan')" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-white text-gray-600 hover:bg-amber-100 border border-amber-200" data-category="makanan">Makanan Berat</button>
+            <button onclick="filterCategory('snack')" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-white text-gray-600 hover:bg-amber-100 border border-amber-200" data-category="snack">Camilan/Snack</button>
+            <button onclick="filterCategory('minuman')" class="category-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-white text-gray-600 hover:bg-amber-100 border border-amber-200" data-category="minuman">Minuman</button>
+        </div>
+
+        <!-- Grid Produk -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Produk akan dirender oleh JavaScript -->
+        </div>
+    </section>
+
+    <!-- Modal Keranjang Belanja -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex justify-end opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col justify-between transform translate-x-full transition-transform duration-300" id="cart-content">
+            <!-- Header Cart -->
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-amber-50/50">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="shopping-bag" class="w-6 h-6 text-red-600"></i>
+                    <h3 class="text-xl font-bold text-gray-900">Keranjang Belanja</h3>
+                </div>
+                <button onclick="toggleCartModal()" class="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- List Item Keranjang -->
+            <div id="cart-items" class="p-6 overflow-y-auto flex-1 space-y-4">
+                <!-- Disi oleh JavaScript -->
+            </div>
+
+            <!-- Footer Cart & Form Pemesanan -->
+            <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4">
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm text-gray-600">
+                        <span>Total Item</span>
+                        <span id="cart-total-items" class="font-semibold">0</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
+                        <span>Total Pembayaran</span>
+                        <span id="cart-total-price" class="text-red-600">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Form Informasi Pembeli -->
+                <div class="space-y-3 pt-2">
+                    <input type="text" id="customer-name" placeholder="Nama Lengkap" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                    <textarea id="customer-address" placeholder="Alamat Pengiriman Lengkap" rows="2" class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea>
+                </div>
+
+                <button onclick="checkoutToWhatsApp()" class="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl shadow-lg shadow-green-600/30 transition-all flex items-center justify-center space-x-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    <span>Pesan via WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-gray-900 text-white pt-12 pb-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-red-600 text-amber-300 p-2 rounded-xl">
+                            <i data-lucide="utensils-crossed" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">RAGIFAH FOOD</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Penyedia layanan kuliner dan catering tepercaya. Menghadirkan rasa lezat, kebersihan terjamin, dan pelayanan terbaik untuk Anda.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-amber-400">Jam Operasional</h4>
+                    <ul class="text-gray-400 text-sm space-y-2">
+                        <li>Senin - Jumat: 08.00 - 20.00 WIB</li>
+                        <li>Sabtu - Minggu: 09.00 - 21.00 WIB</li>
+                        <li class="text-green-400 font-semibold pt-1">● Menerima Pesanan Catering</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-4 text-amber-400">Hubungi Kami</h4>
+                    <ul class="text-gray-400 text-sm space-y-3">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-red-500"></i>
+                            <span>Cikarang Pusat, Kab. Bekasi, Jawa Barat</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-5 h-5 text-red-500"></i>
+                            <span>+62 812-3456-7890</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="instagram" class="w-5 h-5 text-red-500"></i>
+                            <span>@ragifahfood.official</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
+                <p>&copy; 2026 Ragifah Food. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <span id="toast-message" class="text-sm font-medium">Pesanan ditambahkan!</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Produk
+        const products = [
+            {
+                id: 1,
+                name: "Nasi Kebuli Ayam Ragifah",
+                category: "makanan",
+                price: 35000,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80",
+                desc: "Nasi rempah khas dengan potongan ayam empuk dan bumbu kaya rasa."
+            },
+            {
+                id: 2,
+                name: "Roti Maryam Original",
+                category: "snack",
+                price: 15000,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80",
+                desc: "Roti maryam renyah di luar, lembut di dalam. Pas untuk camilan santai."
+            },
+            {
+                id: 3,
+                name: "Es Teh Tarik Rempah",
+                category: "minuman",
+                price: 12000,
+                rating: 4.7,
+                image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80",
+                desc: "Perpaduan teh berkualitas, susu segar, dan aroma rempah yang menyegarkan."
+            },
+            {
+                id: 4,
+                name: "Nasi Goreng Kambing Spesial",
+                category: "makanan",
+                price: 40000,
+                rating: 5.0,
+                image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80",
+                desc: "Nasi goreng beraroma rempah dengan daging kambing empuk tanpa bau."
+            },
+            {
+                id: 5,
+                name: "Samosa Daging Cincang (5 pcs)",
+                category: "snack",
+                price: 25000,
+                rating: 4.8,
+                image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80",
+                desc: "Pastry segitiga renyah berisi daging sapi cincang gurih lezat."
+            },
+            {
+                id: 6,
+                name: "Jus Kurma Milkshake",
+                category: "minuman",
+                price: 18000,
+                rating: 4.9,
+                image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
+                desc: "Olahan kurma pilihan dipadu dengan susu murni yang manis dan sehat."
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+
+        // Render Produk
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            if(items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <i data-lucide="package-x" class="w-12 h-12 text-gray-300 mx-auto mb-3"></i>
+                        <p class="text-gray-500 font-medium">Makanan yang Anda cari tidak ditemukan.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            items.forEach(product => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl overflow-hidden border border-amber-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div>
+                        <div class="relative overflow-hidden h-48">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-amber-600 flex items-center space-x-1 shadow-sm">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+                                <span>${product.rating}</span>
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-gray-900 text-lg group-hover:text-red-600 transition-colors">${product.name}</h3>
+                            <p class="text-gray-500 text-xs mt-1.5 line-clamp-2">${product.desc}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gray-400 block">Harga</span>
+                            <span class="text-lg font-extrabold text-red-600">Rp ${product.price.toLocaleString('id-ID')}</span>
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-sm font-semibold flex items-center space-x-1.5 shadow-md shadow-red-600/20 active:scale-95 transition-all">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            <span>Tambah</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Filter Berdasarkan Kategori
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // Update Active Button Style
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if(btn.dataset.category === category) {
+                    btn.className = "category-btn active px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-red-600 text-white shadow-md shadow-red-600/20";
+                } else {
+                    btn.className = "category-btn px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-white text-gray-600 hover:bg-amber-100 border border-amber-200";
+                }
+            });
+
+            applyFilters();
+        }
+
+        // Filter Pencarian
+        function filterProducts() {
+            applyFilters();
+        }
+
+        function filterProductsMobile() {
+            applyFilters(true);
+        }
+
+        function applyFilters(isMobile = false) {
+            const searchVal = (isMobile 
+                ? document.getElementById('search-input-mobile').value 
+                : document.getElementById('search-input').value).toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchCategory = currentCategory === 'all' || p.category === currentCategory;
+                const matchSearch = p.name.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal);
+                return matchCategory && matchSearch;
+            });
+
+            renderProducts(filtered);
+        }
+
+        // Tambah ke Keranjang
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existItem = cart.find(item => item.id === productId);
+
+            if (existItem) {
+                existItem.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${product.name}" ditambahkan!`);
+        }
+
+        // Modifikasi Kuantitas Item
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Update Tampilan UI Keranjang
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartBadge = document.getElementById('cart-badge');
+            const totalItemsEl = document.getElementById('cart-total-items');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            // Badge
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            // Items List
+            cartItemsContainer.innerHTML = '';
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i data-lucide="shopping-cart" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+                        <p class="text-sm">Keranjang belanja Anda masih kosong.</p>
+                    </div>
+                `;
+            } else {
+                cart.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = "flex items-center justify-between border-b border-gray-100 pb-3";
+                    el.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover">
+                            <div>
+                                <h4 class="font-semibold text-sm text-gray-800 line-clamp-1">${item.name}</h4>
+                                <p class="text-xs text-red-600 font-bold">Rp ${item.price.toLocaleString('id-ID')}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-100 rounded-lg p-1">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 bg-white rounded text-gray-600 flex items-center justify-center text-xs shadow-sm hover:bg-gray-200">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 bg-white rounded text-gray-600 flex items-center justify-center text-xs shadow-sm hover:bg-gray-200">+</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(el);
+                });
+            }
+
+            totalItemsEl.innerText = totalItems;
+            totalPriceEl.innerText = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            lucide.createIcons();
+        }
+
+        // Toggle Modal Keranjang
+        function toggleCartModal() {
+            const modal = document.getElementById('cart-modal');
+            const content = document.getElementById('cart-content');
+
+            if (modal.classList.contains('opacity-0')) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                content.classList.remove('translate-x-full');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('translate-x-full');
+            }
+        }
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Checkout ke WhatsApp
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Keranjang belanja Anda kosong. Silakan pilih menu terlebih dahulu.");
+                return;
+            }
+
+            const name = document.getElementById('customer-name').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+
+            if (!name || !address) {
+                alert("Mohon isi Nama Lengkap dan Alamat Pengiriman Anda.");
+                return;
+            }
+
+            const phoneNumber = "6281234567890"; // Nomor WhatsApp Pengelola Ragifah Food
+            let text = `Halo *Ragifah Food*, saya ingin memesan makanan berikut:\n\n`;
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+                text += `${index + 1}. *${item.name}* (${item.qty}x) = Rp ${subtotal.toLocaleString('id-ID')}\n`;
+            });
+
+            text += `\n*Total Pembayaran:* Rp ${total.toLocaleString('id-ID')}\n\n`;
+            text += `*Data Pemesan:*\n`;
+            text += `• *Nama:* ${name}\n`;
+            text += `• *Alamat:* ${address}\n\n`;
+            text += `Mohon konfirmasi pesanan dan informasi pembayaran. Terima kasih!`;
+
+            const encodedText = encodeURIComponent(text);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+        }
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Inisialisasi awal saat load
+        window.onload = function() {
+            renderProducts(products);
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
